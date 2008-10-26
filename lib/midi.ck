@@ -37,7 +37,7 @@ fun void send(time t, int control, int chan, int note, int vel) {
 	note => msg.data2;
 	vel => msg.data3;
 	msg => midi.send;
-	<<< "midi: ", chan, note, vel >>>;
+	//<<< "midi: ", chan, note, vel >>>;
 }
 
 // listen for note-on schedulings
@@ -49,7 +49,7 @@ fun void listen_on() {
 			ev.getInt() => int chan;
 			ev.getInt() => int note;
 			ev.getInt() => int vel;
-			<<< "osc note-on:", t, chan, note, vel >>>;
+			//<<< "osc note-on:", t, chan, note, vel >>>;
 			spork ~ send(t, 0x90, chan, note, vel);
 		}
 	}
@@ -63,7 +63,7 @@ fun void listen_off() {
 			start + ev.getInt()::ms => time t;
 			ev.getInt() => int chan;
 			ev.getInt() => int note;
-			<<< "osc note-off:", t, chan, note >>>;
+			//<<< "osc note-off:", t, chan, note >>>;
 			spork ~ send(t, 0x80, chan, note, 0);
 		}
 	}
