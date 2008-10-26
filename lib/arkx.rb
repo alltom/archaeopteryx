@@ -6,12 +6,13 @@ module Archaeopteryx
       @beats = attributes[:beats] || 16
       midi_destination = attributes[:midi_destination] || 0
       @evil_timer_offset_wtf = attributes[:evil_timer_offset_wtf]
-      @midi = LiveMIDI.new(:clock => @clock = attributes[:clock], # confusion!!!!!!!!!!
-                           :logging => attributes[:logging] || false,
-                           :midi_destination => midi_destination)
+      @timer = Timer.new((60.0/120)/1000)
+      @chuck = LiveChucK.new(:clock => @clock = attributes[:clock], # confusion!!!!!!!!!!
+                             :logging => attributes[:logging] || false,
+                             :midi_destination => midi_destination)
     end
     def play(music)
-      music.each {|note| @midi.play(note)}
+      music.each {|note| @chuck.play(note)}
     end
     def go
       generate_beats = L do
@@ -22,7 +23,7 @@ module Archaeopteryx
             @clock.tick
           end
         end
-        @midi.timer.at((@clock.start + @clock.time) - @evil_timer_offset_wtf, &generate_beats)
+        @timer.at((@clock.start + @clock.time) - @evil_timer_offset_wtf, &generate_beats)
       end
       generate_beats[]
       gets
