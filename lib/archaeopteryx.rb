@@ -11,6 +11,7 @@ alias :L :lambda
    lib/sequence
    lib/mix
    lib/bassline
+   lib/timer
    
    lib/pitches
    
@@ -22,16 +23,11 @@ alias :L :lambda
    lib/midi/note
    lib/midi/clock
    lib/live_chuck
-
-   lib/midi/practical_ruby_projects/no_midi_destinations
-   lib/midi/practical_ruby_projects/core_midi
-   lib/midi/practical_ruby_projects/core_foundation
-   lib/midi/practical_ruby_projects/live_midi
-   lib/midi/practical_ruby_projects/timer}.each do |lib|
+   lib/midi/live_midi
+   }.each do |lib|
      require File.join(File.dirname(__FILE__), '../', lib)
      require "osc"
    end
 
 [Archaeopteryx,
- Archaeopteryx::Midi,
- Archaeopteryx::Midi::PracticalRubyProjects].each {|constant| include constant}
+ Archaeopteryx::Midi].each {|constant| include constant}
