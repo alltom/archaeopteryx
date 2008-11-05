@@ -1,6 +1,4 @@
-$clock.bpm = 175
 $mutation = L{|measure| 0 == (measure - 1) % 2}
-$measures = 4
 
 probabilities = {}
 

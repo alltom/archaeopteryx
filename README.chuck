@@ -1,0 +1,7 @@
+ChucK+Archaeopteryx no tsukaikata
+
+1) Load lib/cyclone.ck, then lib/midi.ck into ChucK.
+   Either: $ chuck lib/cyclone.ck lib/midi.ck
+   Or: load them in miniAudicle
+
+2) Start archaeopteryx: $ ruby eval_style.rb

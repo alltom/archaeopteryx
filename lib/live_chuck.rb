@@ -11,7 +11,7 @@ LOG_PLAYBACK
       end
 
       @osc = OSC::UDPSocket.new
-      osc_send "/archaeopteryx/sync", "f", Time.now.to_f
+      osc_send "/archaeopteryx/sync", "i", 0
     end
 
     def play(midi_note, on_time = @clock.time)
