@@ -10,8 +10,14 @@ if(!midi.open(Std.atoi(me.arg(0)))) {
 	me.exit();
 }
 
+public class Arkx
+{
+	static Cyclone @ cyc;
+}
+
 // oh yeah, let's do the time warp
-Cyclone.singleton() @=> Cyclone @ cyc;
+Cyclone @ cyc;
+new Cyclone @=> cyc @=> Arkx.cyc;
 
 Event sync_event;
 
@@ -36,7 +42,7 @@ fun void listen_on() {
 			ev.getInt() => int chan;
 			ev.getInt() => int note;
 			ev.getInt() => int vel;
-			<<< "osc note-on:", beat, chan, note, vel >>>;
+			//<<< "osc note-on:", beat, chan, note, vel >>>;
 			spork ~ send(beat, 0x90, chan, note, vel);
 		}
 	}
