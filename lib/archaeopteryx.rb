@@ -1,6 +1,6 @@
 alias :L :lambda
 
-%w{rubygems platform}.each do |lib|
+%w{rubygems platform osc}.each do |lib|
   require lib
 end
 
@@ -25,7 +25,11 @@ end
 
    lib/midi/note
    lib/midi/clock
-   lib/midi/live_midi}.each do |lib|
+   lib/midi/live_midi
+
+   lib/chuck/live_chuck
+   lib/chuck/chuck_arkx
+   }.each do |lib|
      require File.join(File.dirname(__FILE__), '../', lib)
    end
 
