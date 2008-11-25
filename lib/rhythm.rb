@@ -5,8 +5,11 @@ module Archaeopteryx
       @drumfile = attributes[:drumfile]
       reload
     end
+    def flash_screen
+      puts "\a" if Platform::IMPL == :macosx
+    end
     def reload
-      puts "\a" # flash the screen ; only valid on my box and similarly configured machines!
+      flash_screen
       @drums = eval(File.read(@drumfile))
     end
     def notes(beat)
@@ -24,5 +27,3 @@ module Archaeopteryx
     end
   end
 end
-
-# probably rename this to make it drum-specific

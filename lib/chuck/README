@@ -1,0 +1,24 @@
+1) Start a MIDI bus like MIDI Patchbay. ChucK will send notes to it.
+
+2) Start ChucK server:
+  $ chuck lib/chuck/cyclone.ck lib/chuck/server.ck
+
+3) Then start Archaeopteryx:
+  $ ruby eval_style.rb
+
+Start with this eval_style.rb (note $clock and $measures!):
+
+---START---
+require 'lib/archaeopteryx'
+
+$mutation = L{|measure| 0 == (measure - 1) % 2}
+
+$clock = Clock.new(60*4) # make measures "1" long
+$measures = 1 # ChucK asks for one measure at a time
+
+@loop = ChucKArkx.new(:clock => $clock,
+                      :logging => false,
+                      :generator => Rhythm.new(:drumfile => "db_drum_definition.rb",
+                                                :mutation => $mutation))
+@loop.go
+---END---

@@ -1,5 +1,9 @@
 alias :L :lambda
 
+%w{rubygems platform osc}.each do |lib|
+  require lib
+end
+
 %w{lib/core_ext/struct
    
    lib/arkx
@@ -22,8 +26,10 @@ alias :L :lambda
 
    lib/midi/note
    lib/midi/clock
-   lib/live_chuck
+
    lib/midi/live_midi
+   lib/chuck/live_chuck
+   lib/chuck/chuck_arkx
    }.each do |lib|
      require File.join(File.dirname(__FILE__), '../', lib)
      require "osc"

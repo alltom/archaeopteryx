@@ -1,20 +1,17 @@
 module Archaeopteryx
-  class Arkx
+  class ChucKArkx
     def initialize(attributes)
       @generator = attributes[:generator]
       # @measures = attributes[:measures] || 32
       @beats = attributes[:beats] || 16
       midi_destination = attributes[:midi_destination] || 0
-      @evil_timer_offset_wtf = attributes[:evil_timer_offset_wtf]
-      @chuck = LiveChucK.new(:clock => @clock = attributes[:clock], # confusion!!!!!!!!!!
-                             :logging => attributes[:logging] || false,
-                             :midi_destination => midi_destination)
+      @chuck = LiveChucK.new(:clock => @clock = attributes[:clock],
+                             :logging => attributes[:logging] || false)
     end
     def play(music)
       music.each {|note| @chuck.play(note)}
     end
     def osc_serve(&generate_beats)
-      require "osc"
       osc = OSC::UDPServer.new
       osc.bind "localhost", 5001
       osc.add_method "/archaeopteryx/needbeats", "i", &generate_beats
@@ -22,7 +19,6 @@ module Archaeopteryx
     end
     def go
       generate_beats = L do
-        puts "making beats"
         (1..$measures).each do |measure|
           @generator.mutate(measure)
           (0..(@beats - 1)).each do |beat|
@@ -31,13 +27,8 @@ module Archaeopteryx
           end
         end
       end
-      generate_beats[]
-      if Platform::IMPL == :mswin
-        puts 'Press CTRL-C to stop'
-        sleep(10000)
-      else
-        gets
-      end
+      osc_serve &generate_beats
+      gets
     end
   end
 end
